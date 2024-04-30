@@ -39,6 +39,7 @@ async def root():
 class VersionSchema(Schema):
     major = fields.Integer(required=True)
     minor = fields.Integer(required=True)
+    patch = fields.Integer(required=True)
 
 
 VERSION = VersionSchema(many=False)
@@ -46,4 +47,8 @@ VERSION = VersionSchema(many=False)
 
 @app.get("/version")
 async def version():
-    return VERSION.dump({"major": 1, "minor": 0})
+    version, errors = VERSION.load({"major": 1, "minor": 0, "patch": None})
+    if errors:
+        raise ValueError(errors)
+    else:
+        return version
