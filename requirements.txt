@@ -1,6 +1,6 @@
 # prod
 fastapi[all]
-marshmallow==1.2.6
+marshmallow==2.15.1
 
 # dev
 uvicorn
