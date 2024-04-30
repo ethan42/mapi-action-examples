@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, Response
+from marshmallow import Schema, fields
 import os
 import sqlite3
 
@@ -34,3 +35,15 @@ async def startup_event():
 async def root():
     return {"message": "Hello World"}
 
+
+class VersionSchema(Schema):
+    major = fields.Integer(required=True)
+    minor = fields.Integer(required=True)
+
+
+VERSION = VersionSchema(many=False)
+
+
+@app.get("/version")
+async def version():
+    return VERSION.dump({"major": 1, "minor": 0})
