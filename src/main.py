@@ -39,7 +39,7 @@ async def root():
 class VersionSchema(Schema):
     major = fields.Integer(required=True)
     minor = fields.Integer(required=True)
-    patch = fields.Integer(required=True)
+    patch = fields.Integer(required=True, allow_none=True)
 
 
 VERSION = VersionSchema(many=False)
